@@ -49,9 +49,9 @@ func TestIdentify(t *testing.T) {
 
 var TestString string
 
-//BenchmarkIdentifyNothing-12         	 4534200	       251 ns/op	     112 B/op	       3 allocs/op
-//BenchmarkIdentifyNothing-12         	 4633668	       260 ns/op	     112 B/op	       3 allocs/op
-//BenchmarkIdentifyNothing-12         	 4745737	       254 ns/op	     112 B/op	       3 allocs/op
+//BenchmarkIdentifyNothing-12              7456538               155 ns/op             272 B/op          3 allocs/op
+//BenchmarkIdentifyNothing-12              7818858               156 ns/op             272 B/op          3 allocs/op
+//BenchmarkIdentifyNothing-12              7684363               157 ns/op             272 B/op          3 allocs/op
 func BenchmarkIdentifyNothing(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		x, _ := Identify()
@@ -59,9 +59,9 @@ func BenchmarkIdentifyNothing(b *testing.B) {
 	}
 }
 
-//BenchmarkIdentifyWithStringer-12    	 4032463	       293 ns/op	     128 B/op	       4 allocs/op
-//BenchmarkIdentifyWithStringer-12    	 4029304	       295 ns/op	     128 B/op	       4 allocs/op
-//BenchmarkIdentifyWithStringer-12    	 4081983	       298 ns/op	     128 B/op	       4 allocs/op
+//BenchmarkIdentifyWithStringer-12         5619817               216 ns/op             288 B/op          4 allocs/op
+//BenchmarkIdentifyWithStringer-12         5560032               214 ns/op             288 B/op          4 allocs/op
+//BenchmarkIdentifyWithStringer-12         5631970               214 ns/op             288 B/op          4 allocs/op
 func BenchmarkIdentifyWithStringer(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		x, _ := Identify(mockDevice{"foobar"})
@@ -69,9 +69,9 @@ func BenchmarkIdentifyWithStringer(b *testing.B) {
 	}
 }
 
-//BenchmarkIdentifyWithStringerTwo-12    	 5263212	       225 ns/op	     288 B/op	       4 allocs/op
-//BenchmarkIdentifyWithStringerTwo-12    	 5253398	       234 ns/op	     288 B/op	       4 allocs/op
-//BenchmarkIdentifyWithStringerTwo-12    	 5327564	       231 ns/op	     288 B/op	       4 allocs/op
+//BenchmarkIdentifyWithStringerTwo-12      5182345               228 ns/op             288 B/op          4 allocs/op
+//BenchmarkIdentifyWithStringerTwo-12      5208236               225 ns/op             288 B/op          4 allocs/op
+//BenchmarkIdentifyWithStringerTwo-12      5305508               225 ns/op             288 B/op          4 allocs/op
 func BenchmarkIdentifyWithStringerTwo(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		x, _ := Identify(mockDevice{"foobar"}, Stringer("hello world"))
