@@ -1,6 +1,6 @@
 # go-fingerprint  ![Go](https://github.com/marcsantiago/go-fingerprint/workflows/Go/badge.svg)
 
-This is a simple interface, which wraps github.com/minio/highwayhash to allow fingerprinting for any objects thats implement the Stringer interface. This allows for server side finger printing of structs created by server request payloads.
+This is a simple interface, which wraps github.com/minio/highwayhash to allow fingerprinting for any object that implements the Stringer interface. This allows for server side finger printing of structs created by server request payloads.
   
 ## fingerprint  
 `import "github.com/marcsantiago/go-fingerprint"`  
