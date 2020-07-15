@@ -2,73 +2,119 @@
 
 This is a simple interface, which wraps github.com/minio/highwayhash to allow fingerprinting for any object that implements the Stringer interface. This allows for server side finger printing of structs created by server request payloads.
   
-## fingerprint  
-`import "github.com/marcsantiago/go-fingerprint"`  
-  
-* [Overview](#pkg-overview)  
-* [Index](#pkg-index)  
-  
-## <a name="pkg-overview">Overview</a>  
-  
-  
-  
-## <a name="pkg-index">Index</a>  
-* [func Identify(strObjects ...fmt.Stringer) (string, error)](#Identify)  
-* [func SetHashKeyWithSeed(s int64)](#SetHashKeyWithSeed)  
-* [type Stringer](#Stringer)  
-  * [func (s Stringer) String() string](#Stringer.String)  
-  
-  
-#### <a name="pkg-files">Package files</a>  
-[fingerprint.go](/src/github.com/marcsantiago/go-fingerprint/fingerprint.go) [stringer.go](/src/github.com/marcsantiago/go-fingerprint/stringer.go)   
-  
-  
-  
-  
-  
-## <a name="Identify">func</a> [Identify](/src/target/fingerprint.go?s=469:526#L26)  
-``` go  
-func Identify(strObjects ...fmt.Stringer) (string, error)  
-```  
-Identify takes the string representation of objects and creates a hash in the form of a uuid  
-if a seed is not provided a random 32 byte key is generated using a timestamp  
-  
-  
-  
-## <a name="SetHashKeyWithSeed">func</a> [SetHashKeyWithSeed](/src/target/fingerprint.go?s=935:967#L48)  
-``` go  
-func SetHashKeyWithSeed(s int64)  
-```  
-SetHashKeyWithSeed sets the seed and generates a new 32 key for the internal hash function  
-  
-  
-  
-  
-## <a name="Stringer">type</a> [Stringer](/src/target/stringer.go?s=139:159#L4)  
-``` go  
-type Stringer string  
-```  
-Stringer is a type alias for the string primitive that allows normal strings to satisfy the fmt.Stringer interface  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-### <a name="Stringer.String">func</a> (Stringer) [String](/src/target/stringer.go?s=161:194#L6)  
-``` go  
-func (s Stringer) String() string  
-```  
-  
-  
-  
-  
-  
-  
-  
-- - -  
+
+# fingerprint
+`import "github.com/marcsantiago/go-fingerprint"`
+
+* [Overview](#pkg-overview)
+* [Index](#pkg-index)
+
+## <a name="pkg-overview">Overview</a>
+
+
+
+## <a name="pkg-index">Index</a>
+* [func Identify(strObjects ...fmt.Stringer) (string, error)](#Identify)
+* [func SetHashKeyWithSeed(s int64)](#SetHashKeyWithSeed)
+* [type Scanner](#Scanner)
+  * [func NewScanner() Scanner](#NewScanner)
+  * [func (sc Scanner) Identify(strObjects ...fmt.Stringer) (string, error)](#Scanner.Identify)
+  * [func (sc *Scanner) SetHashKeyWithSeed(s int64)](#Scanner.SetHashKeyWithSeed)
+* [type Stringer](#Stringer)
+  * [func (s Stringer) String() string](#Stringer.String)
+
+
+#### <a name="pkg-files">Package files</a>
+[fingerprint.go](/src/github.com/marcsantiago/go-fingerprint/fingerprint.go) [scanner.go](/src/github.com/marcsantiago/go-fingerprint/scanner.go) [stringer.go](/src/github.com/marcsantiago/go-fingerprint/stringer.go) 
+
+
+
+
+
+## <a name="Identify">func</a> [Identify](/src/target/fingerprint.go?s=471:528#L27)
+``` go
+func Identify(strObjects ...fmt.Stringer) (string, error)
+```
+Identify takes the string representation of objects and creates a hash in the form of a uuid
+if a seed is not provided a random 32 byte key is generated using a timestamp
+
+
+
+## <a name="SetHashKeyWithSeed">func</a> [SetHashKeyWithSeed](/src/target/fingerprint.go?s=937:969#L49)
+``` go
+func SetHashKeyWithSeed(s int64)
+```
+SetHashKeyWithSeed sets the seed and generates a new 32 key for the internal hash function
+
+
+
+
+## <a name="Scanner">type</a> [Scanner](/src/target/scanner.go?s=198:235#L14)
+``` go
+type Scanner struct {
+    // contains filtered or unexported fields
+}
+```
+Scanner provides the ability to create a single hash.Hash that can be reused
+
+
+
+
+
+
+
+### <a name="NewScanner">func</a> [NewScanner](/src/target/scanner.go?s=336:361#L19)
+``` go
+func NewScanner() Scanner
+```
+NewScanner returns an instance of scanner with the hash initialized using the math/rand package
+
+
+
+
+
+### <a name="Scanner.Identify">func</a> (Scanner) [Identify](/src/target/scanner.go?s=535:605#L31)
+``` go
+func (sc Scanner) Identify(strObjects ...fmt.Stringer) (string, error)
+```
+
+
+
+### <a name="Scanner.SetHashKeyWithSeed">func</a> (\*Scanner) [SetHashKeyWithSeed](/src/target/scanner.go?s=1031:1077#L51)
+``` go
+func (sc *Scanner) SetHashKeyWithSeed(s int64)
+```
+SetHashKeyWithSeed sets the seed and generates a new 32 key for the internal hash function
+note that this is not protected by a mutex for performance reasons
+
+
+
+
+## <a name="Stringer">type</a> [Stringer](/src/target/stringer.go?s=139:159#L4)
+``` go
+type Stringer string
+```
+Stringer is a type alias for the string primitive that allows normal strings to satisfy the fmt.Stringer interface
+
+
+
+
+
+
+
+
+
+
+### <a name="Stringer.String">func</a> (Stringer) [String](/src/target/stringer.go?s=161:194#L6)
+``` go
+func (s Stringer) String() string
+```
+
+
+
+
+
+
+
+- - -
 Generated by [godoc2md](http://godoc.org/github.com/davecheney/godoc2md)

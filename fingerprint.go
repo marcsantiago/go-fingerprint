@@ -10,9 +10,10 @@ import (
 	"github.com/minio/highwayhash"
 )
 
-var _key = make([]byte, 32)
-
-var _seed = rand.NewSource(time.Now().Unix())
+var (
+	_key  = make([]byte, 32)
+	_seed = rand.NewSource(time.Now().Unix())
+)
 
 func init() {
 	r := rand.New(_seed)
