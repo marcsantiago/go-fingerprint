@@ -53,7 +53,7 @@ func (sc Scanner) Identify(strObjects ...fmt.Stringer) (string, error) {
 }
 
 // SetHashKeyWithSeed sets the seed and generates a new 32 key for the internal hash function
-func (sc *Scanner) SetHashKeyWithSeed(s int64) {
+func (sc *Scanner) SetHashKeyWithSeed(s int64) *Scanner {
 	key := make([]byte, 32)
 	source := rand.NewSource(s)
 	r := rand.New(source)
@@ -63,4 +63,5 @@ func (sc *Scanner) SetHashKeyWithSeed(s int64) {
 	sc.mu.Lock()
 	sc.hh = hh
 	sc.mu.Unlock()
+	return sc
 }
