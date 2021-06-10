@@ -18,21 +18,21 @@ type Scanner struct {
 }
 
 // NewScanner returns an instance of scanner with the hash initialized using the math/rand package
-func NewScanner() Scanner {
+func NewScanner() *Scanner {
 	key := make([]byte, 32)
 	s := rand.NewSource(time.Now().Unix())
 	r := rand.New(s)
 	_, _ = r.Read(key)
 
 	hh, _ := highwayhash.New128(key)
-	return Scanner{
+	return &Scanner{
 		hh: hh,
 	}
 }
 
 // Identify takes the string representation of objects and creates a hash in the form of a uuid
 // if a seed is not provided a random 32 byte key is generated using a timestamp
-func (sc Scanner) Identify(strObjects ...fmt.Stringer) (string, error) {
+func (sc *Scanner) Identify(strObjects ...fmt.Stringer) (string, error) {
 	sc.mu.Lock()
 	for _, s := range strObjects {
 		sc.hh.Write(unsafeGetBytes(s.String()))
