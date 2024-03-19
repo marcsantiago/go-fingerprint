@@ -4,7 +4,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"math/rand"
-	"reflect"
 	"time"
 	"unsafe"
 
@@ -54,10 +53,8 @@ func SetHashKeyWithSeed(s int64) {
 }
 
 func unsafeGetBytes(s string) (b []byte) {
-	sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
-	bh := (*reflect.SliceHeader)(unsafe.Pointer(&b))
-	bh.Data = sh.Data
-	bh.Len = sh.Len
-	bh.Cap = sh.Len
-	return b
+	if s == "" {
+		return nil
+	}
+	return unsafe.Slice(unsafe.StringData(s), len(s))
 }
